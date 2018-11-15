@@ -73,17 +73,29 @@ namespace Markdown
                     continue;
                 }
 
-                if (mark.Type.IsEnd() && markStack.Any() && markStack.Peek().RelatedToTheSameRule(mark))
+                if (IsValidEndMark(initialString, mark) && 
+                    markStack.Any() && markStack.Peek().RelatedToTheSameRule(mark))
                 {
                     yield return (markStack.Pop(), mark, markStack.Count);
                 }
-                else if (mark.Type.IsStart() &&
-                         (mark.Start == 0 || char.IsWhiteSpace(initialString, mark.Start - 1)) &&
-                         (mark.End != initialString.Length && !char.IsWhiteSpace(initialString, mark.End)))
+                else if (IsValidStartMark(initialString, mark))
                 {
                     markStack.Push(mark);
                 }
             }
+        }
+
+        private static bool IsValidEndMark(string initialString, Mark mark)
+        {
+            return mark.Type.IsEnd() &&
+                   (mark.Start == 0 || !char.IsWhiteSpace(initialString, mark.Start - 1));
+        }
+
+        private static bool IsValidStartMark(string initialString, Mark mark)
+        {
+            return mark.Type.IsStart() &&
+                   (mark.Start == 0 || char.IsWhiteSpace(initialString, mark.Start - 1)) &&
+                   (mark.End != initialString.Length && !char.IsWhiteSpace(initialString, mark.End));
         }
 
         private static IEnumerable<Mark> ScanForMarks(string mdLine)
