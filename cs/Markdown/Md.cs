@@ -136,7 +136,7 @@ namespace Markdown
 
         private static int SkipUntilSpecialSymbol(string input, int startIndex)
         {
-            while (startIndex < input.Length && !IsSymbolSpecial(input[startIndex]))
+            while (startIndex < input.Length && (startIndex != 0 && input[startIndex-1] == '\\' || !IsSymbolSpecial(input[startIndex])))
             {
                 startIndex++;
             }

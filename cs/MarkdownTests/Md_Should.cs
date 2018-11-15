@@ -31,6 +31,9 @@ namespace MarkdownTests
         [TestCase("_Parse __me__ and me_",
             ExpectedResult = "<em>Parse __me__ and me</em>",
             TestName = "Выделение полужирным не работает внутри выделения курсивом")]
+        [TestCase("ignore\\_me\\_",
+            ExpectedResult = "ignore\\_me\\_",
+            TestName = "Экранирование символов должно работать")]
         public string Render(string mdLine)
         {
             return new Md().Render(mdLine);
