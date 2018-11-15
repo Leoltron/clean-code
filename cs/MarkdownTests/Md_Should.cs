@@ -43,6 +43,9 @@ namespace MarkdownTests
         [TestCase("Hello _me _",
             ExpectedResult = "Hello _me _",
             TestName = "Подчерки, заканчивающие выделение и перед которыми есть пробельный символ, должны быть проигнорированы")]
+        [TestCase("Hello _me_hello",
+            ExpectedResult = "Hello _me_hello",
+            TestName = "Подчерки, заканчивающие выделение и после которых нет пробельного символа, должны быть проигнорированы")]
         public string Render(string mdLine)
         {
             return new Md().Render(mdLine);
