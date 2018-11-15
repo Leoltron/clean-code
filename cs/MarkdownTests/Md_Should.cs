@@ -7,15 +7,20 @@ namespace MarkdownTests
     [SuppressMessage("ReSharper", "StringLiteralTypo")]
     public class Md_Should
     {
-        [TestCase("Parse me", ExpectedResult = "Parse me",
+        [TestCase("Parse me",
+            ExpectedResult = "Parse me",
             TestName = "Не меняет строку без форматирующих символов")]
-        [TestCase("_Parse me_", ExpectedResult = "<em>Parse me</em>",
+        [TestCase("_Parse me_",
+            ExpectedResult = "<em>Parse me</em>",
             TestName = "Оборачивает в <em> строку, обернутую в знаки подчерка")]
-        [TestCase("Pase me, _me_ and me", ExpectedResult = "Pase me, <em>me</em> and me", 
+        [TestCase("Parse me, _me_ and me",
+            ExpectedResult = "Parse me, <em>me</em> and me",
             TestName = "Оборачивает в <em> строку, обернутую в знаки подчерка, не трогая то, что лежит вне знаков")]
-        [TestCase("Pase me, _ and me", ExpectedResult = "Pase me, _ and me",
+        [TestCase("Parse me, _ and me",
+            ExpectedResult = "Parse me, _ and me",
             TestName = "Не трогает одиночные знаки подчерка внутри строки")]
-        [TestCase("Pase me, and me_", ExpectedResult = "Pase me, and me_",
+        [TestCase("Parse me, and me_",
+            ExpectedResult = "Parse me, and me_",
             TestName = "Не трогает одиночные знаки подчерка в конце строки")]
         public string Render(string mdLine)
         {
