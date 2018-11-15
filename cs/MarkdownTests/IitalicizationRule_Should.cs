@@ -1,5 +1,4 @@
-﻿using Markdown;
-using Markdown.Rules;
+﻿using Markdown.Rules;
 using NUnit.Framework;
 
 namespace MarkdownTests

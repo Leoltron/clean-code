@@ -25,6 +25,9 @@ namespace MarkdownTests
         [TestCase("__Parse me__",
             ExpectedResult = "<strong>Parse me</strong>",
             TestName = "Оборачивает в <strong> строку, обернутую в двойные знаки подчерка")]
+        [TestCase("__Parse _me_ and me__",
+            ExpectedResult = "<strong>Parse <em>me</em> and me</strong>",
+            TestName = "Выделение курсивом работает внутри выделения полужирным")]
         public string Render(string mdLine)
         {
             return new Md().Render(mdLine);

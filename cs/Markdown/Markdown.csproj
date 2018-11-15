@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mark.cs" />
+    <Compile Include="MarkType.cs" />
+    <Compile Include="MarkTypeExtensions.cs" />
     <Compile Include="Rules\BoldRule.cs" />
     <Compile Include="Rules\IitalicizationRule.cs" />
     <Compile Include="Rules\IMdRule.cs" />
