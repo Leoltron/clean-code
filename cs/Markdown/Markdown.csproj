@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="IitalicizationRule.cs" />
     <Compile Include="IMdRule.cs" />
+    <Compile Include="SetExtensions.cs" />
     <Compile Include="Md.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
