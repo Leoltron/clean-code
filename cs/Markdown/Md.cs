@@ -61,7 +61,8 @@ namespace Markdown
             return stringBuilder.ToString();
         }
 
-        private static IEnumerable<(Mark startMark, Mark endMark, int depth)> ToPairs(string initialString, IEnumerable<Mark> marks)
+        private static IEnumerable<(Mark startMark, Mark endMark, int depth)> ToPairs(string initialString,
+            IEnumerable<Mark> marks)
         {
             var markStack = new Stack<Mark>();
             foreach (var mark in marks)
@@ -76,8 +77,9 @@ namespace Markdown
                 {
                     yield return (markStack.Pop(), mark, markStack.Count);
                 }
-                else if (mark.Type.IsStart() && 
-                         (mark.End != initialString.Length && !char.IsWhiteSpace(initialString[mark.End])))
+                else if (mark.Type.IsStart() &&
+                         (mark.Start == 0 || char.IsWhiteSpace(initialString, mark.Start - 1)) &&
+                         (mark.End != initialString.Length && !char.IsWhiteSpace(initialString, mark.End)))
                 {
                     markStack.Push(mark);
                 }
@@ -137,7 +139,8 @@ namespace Markdown
 
         private static int SkipUntilSpecialSymbol(string input, int startIndex)
         {
-            while (startIndex < input.Length && (startIndex != 0 && input[startIndex-1] == '\\' || !IsSymbolSpecial(input[startIndex])))
+            while (startIndex < input.Length &&
+                   (startIndex != 0 && input[startIndex - 1] == '\\' || !IsSymbolSpecial(input[startIndex])))
             {
                 startIndex++;
             }
