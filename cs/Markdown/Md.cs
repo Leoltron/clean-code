@@ -53,6 +53,7 @@ namespace Markdown
                         lastFoundRule = null;
                     }
                     else if (lastFoundRule == null &&
+                             specialEnd < mdLine.Length &&
                              StartStrings.TryGetValue(specialString, out rule))
                     {
                         lastFoundRule = rule;
@@ -64,9 +65,15 @@ namespace Markdown
                 else
                 {
                     var newIndex = SkipUntilSpecialSymbol(mdLine, index);
-                    if(lastFoundRule == null)
+                    if (lastFoundRule == null)
                     {
                         stringBuilder.Append(mdLine, index, newIndex - index);
+                    }
+                    else if (newIndex == mdLine.Length)
+                    {
+                        var ruleStartStringLength = lastFoundRule.StartString().Length;
+                        var appendingStringStart = lastFoundRuleStart - ruleStartStringLength;
+                        stringBuilder.Append(mdLine, appendingStringStart, newIndex - appendingStringStart);
                     }
 
                     index = newIndex;
