@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IitalicizationRule.cs" />
+    <Compile Include="IMdRule.cs" />
     <Compile Include="Md.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
