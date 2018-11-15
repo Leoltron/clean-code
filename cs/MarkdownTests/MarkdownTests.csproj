@@ -51,6 +51,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BoldRule_Should.cs" />
     <Compile Include="IitalicizationRule_Should.cs" />
     <Compile Include="Md_Should.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

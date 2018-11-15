@@ -41,8 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IitalicizationRule.cs" />
-    <Compile Include="IMdRule.cs" />
+    <Compile Include="Rules\BoldRule.cs" />
+    <Compile Include="Rules\IitalicizationRule.cs" />
+    <Compile Include="Rules\IMdRule.cs" />
     <Compile Include="SetExtensions.cs" />
     <Compile Include="Md.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,6 +1,6 @@
-﻿namespace Markdown
+﻿namespace Markdown.Rules
 {
-    public class IitalicizationRule :IMdRule
+    public class IitalicizationRule : IMdRule
     {
         public string StartString() => "_";
 

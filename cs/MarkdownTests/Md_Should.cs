@@ -22,6 +22,9 @@ namespace MarkdownTests
         [TestCase("Parse me, and me_",
             ExpectedResult = "Parse me, and me_",
             TestName = "Не трогает одиночные знаки подчерка в конце строки")]
+        [TestCase("__Parse me__",
+            ExpectedResult = "<strong>Parse me</strong>",
+            TestName = "Оборачивает в <strong> строку, обернутую в двойные знаки подчерка")]
         public string Render(string mdLine)
         {
             return new Md().Render(mdLine);

@@ -1,4 +1,4 @@
-﻿namespace Markdown
+﻿namespace Markdown.Rules
 {
     public interface IMdRule
     {
