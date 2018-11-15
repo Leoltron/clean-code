@@ -12,6 +12,7 @@ namespace Markdown
                 case MarkType.StartOrEnd:
                     return true;
                 case MarkType.End:
+                case MarkType.None:
                     return false;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(markType), markType, null);
@@ -26,6 +27,7 @@ namespace Markdown
                 case MarkType.StartOrEnd:
                     return true;
                 case MarkType.Start:
+                case MarkType.None:
                     return false;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(markType), markType, null);

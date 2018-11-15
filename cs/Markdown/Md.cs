@@ -23,26 +23,30 @@ namespace Markdown
                 .Where(t => t.IsClass && !t.IsAbstract && t.GetInterfaces().Contains(typeof(IMdRule))))
             {
                 var rule = (IMdRule) Activator.CreateInstance(ruleType);
-                StartStrings.Add(rule.StartString(), rule);
-                EndStrings.Add(rule.EndString(), rule);
+                StartStrings.Add(rule.StartString, rule);
+                EndStrings.Add(rule.EndString, rule);
 
-                SpecialSymbols.AddRange(rule.StartString());
-                SpecialSymbols.AddRange(rule.EndString());
+                SpecialSymbols.AddRange(rule.StartString);
+                SpecialSymbols.AddRange(rule.EndString);
             }
         }
 
         public string Render(string mdLine)
         {
             var marks = ScanForMarks(mdLine);
-            var pairs = ToPairs(marks).OrderByDescending(pair => pair.depth).ToList();
+            var pairs = ToPairs(marks).ToList();
+            return RenderPairs(mdLine, pairs);
+        }
+
+        private static string RenderPairs(string mdLine, List<(Mark startMark, Mark endMark, int depth)> pairs)
+        {
             var remainingMarks = pairs
                 .SelectMany(pair => new[] {pair.startMark, pair.endMark})
                 .OrderBy(mark => mark.Start).ToList();
-
-            var sb = new StringBuilder(mdLine);
-            foreach (var (startMark, endMark, _) in pairs)
+            var stringBuilder = new StringBuilder(mdLine);
+            foreach (var (startMark, endMark, _) in pairs.OrderByDescending(pair => pair.depth))
             {
-                var content = sb.ToString(startMark.End, endMark.Start - startMark.End);
+                var content = stringBuilder.ToString(startMark.End, endMark.Start - startMark.End);
                 var formattedContent = startMark.RelatedRule.Format(content);
                 var lengthDifference = formattedContent.Length - (startMark.Length + content.Length + endMark.Length);
                 foreach (var affectedMarks in remainingMarks.SkipWhile(mark => mark.Start <= endMark.Start))
@@ -50,11 +54,33 @@ namespace Markdown
                     affectedMarks.Move(lengthDifference);
                 }
 
-                sb.Remove(startMark.Start, endMark.End - startMark.Start);
-                sb.Insert(startMark.Start, formattedContent);
+                stringBuilder.Remove(startMark.Start, endMark.End - startMark.Start);
+                stringBuilder.Insert(startMark.Start, formattedContent);
             }
 
-            return sb.ToString();
+            return stringBuilder.ToString();
+        }
+
+        private static IEnumerable<(Mark startMark, Mark endMark, int depth)> ToPairs(IEnumerable<Mark> marks)
+        {
+            var markStack = new Stack<Mark>();
+            foreach (var mark in marks)
+            {
+                if (markStack.Any(upperMark => !upperMark.RelatedRule.AllowedInsideRules.DoesAccept(mark.RelatedRule) &&
+                                               !upperMark.RelatedToTheSameRule(mark)))
+                {
+                    continue;
+                }
+
+                if (mark.Type.IsEnd() && markStack.Any() && markStack.Peek().RelatedToTheSameRule(mark))
+                {
+                    yield return (markStack.Pop(), mark, markStack.Count);
+                }
+                else if (mark.Type.IsStart())
+                {
+                    markStack.Push(mark);
+                }
+            }
         }
 
         private static IEnumerable<Mark> ScanForMarks(string mdLine)
@@ -75,22 +101,6 @@ namespace Markdown
                 else
                 {
                     index = SkipUntilSpecialSymbol(mdLine, index);
-                }
-            }
-        }
-
-        private static IEnumerable<(Mark startMark, Mark endMark, int depth)> ToPairs(IEnumerable<Mark> marks)
-        {
-            var markStack = new Stack<Mark>();
-            foreach (var mark in marks)
-            {
-                if (mark.Type.IsEnd() && markStack.Any() && markStack.Peek().RelatedToTheSameRule(mark))
-                {
-                    yield return (markStack.Pop(), mark, markStack.Count);
-                }
-                else if (mark.Type.IsStart())
-                {
-                    markStack.Push(mark);
                 }
             }
         }

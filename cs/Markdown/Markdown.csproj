@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AllowedRules.cs" />
+    <Compile Include="ListType.cs" />
+    <Compile Include="ListTypeExtensions.cs" />
     <Compile Include="Mark.cs" />
     <Compile Include="MarkType.cs" />
     <Compile Include="MarkTypeExtensions.cs" />
