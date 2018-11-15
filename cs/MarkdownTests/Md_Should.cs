@@ -15,6 +15,8 @@ namespace MarkdownTests
             TestName = "Оборачивает в <em> строку, обернутую в знаки подчерка, не трогая то, что лежит вне знаков")]
         [TestCase("Pase me, _ and me", ExpectedResult = "Pase me, _ and me",
             TestName = "Не трогает одиночные знаки подчерка внутри строки")]
+        [TestCase("Pase me, and me_", ExpectedResult = "Pase me, and me_",
+            TestName = "Не трогает одиночные знаки подчерка в конце строки")]
         public string Render(string mdLine)
         {
             return new Md().Render(mdLine);

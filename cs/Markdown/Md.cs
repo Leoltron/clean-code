@@ -59,6 +59,10 @@ namespace Markdown
                         lastFoundRule = rule;
                         lastFoundRuleStart = specialEnd;
                     }
+                    else
+                    {
+                        stringBuilder.Append(specialString);
+                    }
 
                     index = specialEnd;
                 }
