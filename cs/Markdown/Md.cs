@@ -34,7 +34,7 @@ namespace Markdown
         public string Render(string mdLine)
         {
             var marks = ScanForMarks(mdLine);
-            var pairs = ToPairs(marks).ToList();
+            var pairs = ToPairs(mdLine, marks).ToList();
             return RenderPairs(mdLine, pairs);
         }
 
@@ -61,7 +61,7 @@ namespace Markdown
             return stringBuilder.ToString();
         }
 
-        private static IEnumerable<(Mark startMark, Mark endMark, int depth)> ToPairs(IEnumerable<Mark> marks)
+        private static IEnumerable<(Mark startMark, Mark endMark, int depth)> ToPairs(string initialString, IEnumerable<Mark> marks)
         {
             var markStack = new Stack<Mark>();
             foreach (var mark in marks)
@@ -76,7 +76,8 @@ namespace Markdown
                 {
                     yield return (markStack.Pop(), mark, markStack.Count);
                 }
-                else if (mark.Type.IsStart())
+                else if (mark.Type.IsStart() && 
+                         (mark.End != initialString.Length && !char.IsWhiteSpace(initialString[mark.End])))
                 {
                     markStack.Push(mark);
                 }

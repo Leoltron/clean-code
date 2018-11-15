@@ -34,6 +34,9 @@ namespace MarkdownTests
         [TestCase("ignore\\_me\\_",
             ExpectedResult = "ignore\\_me\\_",
             TestName = "Экранирование символов должно работать")]
+        [TestCase("Hello _ me_",
+            ExpectedResult = "Hello _ me_",
+            TestName = "Поодчерки, начинающие выделение и после которых идет пробельный символ, должны быть проигнорированы")]
         public string Render(string mdLine)
         {
             return new Md().Render(mdLine);
