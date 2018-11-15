@@ -4,7 +4,7 @@
     {
         public string Render(string mdLine)
         {
-            return string.Empty;
+            return mdLine;
         }
     }
 }
