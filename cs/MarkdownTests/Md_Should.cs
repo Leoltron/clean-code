@@ -48,7 +48,7 @@ namespace MarkdownTests
             TestName = "Подчерки, заканчивающие выделение и после которых нет пробельного символа, должны быть проигнорированы")]
         public string Render(string mdLine)
         {
-            return new Md().Render(mdLine);
+            return Md.Render(mdLine);
         }
     }
 }

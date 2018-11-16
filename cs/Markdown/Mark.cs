@@ -33,7 +33,7 @@ namespace Markdown
 
         public override string ToString()
         {
-            return $"[{Type}] ({Start}->{End}) {RelatedRule}";
+            return $"[{Type}] ({Start}->{End}) {RelatedRule.Name}";
         }
     }
 }

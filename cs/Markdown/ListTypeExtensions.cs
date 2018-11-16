@@ -17,7 +17,7 @@ namespace Markdown
             }
         }
 
-        public static bool ListMatchAcceptance(this ListType listType)
+        public static bool DoesAcceptIfInList(this ListType listType)
         {
             switch (listType)
             {

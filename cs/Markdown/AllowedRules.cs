@@ -8,9 +8,8 @@ namespace Markdown
         private readonly ISet<string> ruleNameList;
         private readonly ListType listType;
 
-        public AllowedRules(): this(ListType.BlackList)
+        public AllowedRules() : this(ListType.BlackList)
         {
-            
         }
 
         public AllowedRules(ListType listType, params string[] ruleNameList)
@@ -22,7 +21,7 @@ namespace Markdown
         public bool DoesAccept(IMdRule rule)
         {
             return ruleNameList.Contains(rule.Name)
-                ? listType.ListMatchAcceptance()
+                ? listType.DoesAcceptIfInList()
                 : listType.DefaultAcceptance();
         }
     }

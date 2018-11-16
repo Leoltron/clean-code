@@ -1,6 +1,6 @@
 ﻿namespace Markdown.Rules
 {
-    public class IitalicizationRule : IMdRule
+    public class ItalicizationRule : IMdRule
     {
         public const string RuleName = "Italic";
 

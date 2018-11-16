@@ -45,10 +45,11 @@
     <Compile Include="ListType.cs" />
     <Compile Include="ListTypeExtensions.cs" />
     <Compile Include="Mark.cs" />
+    <Compile Include="MarkSearchEngine.cs" />
     <Compile Include="MarkType.cs" />
     <Compile Include="MarkTypeExtensions.cs" />
     <Compile Include="Rules\BoldRule.cs" />
-    <Compile Include="Rules\IitalicizationRule.cs" />
+    <Compile Include="Rules\ItalicizationRule.cs" />
     <Compile Include="Rules\IMdRule.cs" />
     <Compile Include="SetExtensions.cs" />
     <Compile Include="Md.cs" />
